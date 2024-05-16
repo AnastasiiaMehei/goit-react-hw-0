@@ -1,58 +1,58 @@
 // import css from './App.module.css'
-import { useState, useEffect } from 'react';
-// import SearchBar from "../SearchBar/SearchBar"
+import { useState } from 'react';
+import SearchBar from "../SearchBar/SearchBar"
 import ImageGallery from '../ImageGallery/ImageGallery';
 import { getImages } from '../../components/api';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Loader from '../Loader/Loader';
+import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 
 export default function App() {
-  // useEffect(()=>{
-  //   axios
-  //   .get(`https://api.unsplash.com/search/photos/query=cats/?client_id=-7i_jnQlSjDuNkJ4shZWckNEJtBVks9schHspWR86Vg`)
-  //   .then((response)=>{
-  //     console.log(response.data.hits);
-  //   })
-  // }, [])
+
  const [images, setImages] = useState([]);
  const [isLoading, setIsLoading] = useState(false);
  const [isError, setIsError] = useState(false);
+ const [page, setPage] = useState(1);
+ const [searchQuery, setSearchQuery] = useState("");
 
 
-//   useEffect(()=>{
-//     async function fetchImages(){
-//       try {
-//         setIsLoading(true);
-//       const fetchedImages = await getImages('cats');
-//       setImages(fetchedImages);
-//       } catch (error) {
-//         setIsError(true);
-//     }
-//     }
-//     fetchImages(
-//       setIsLoading(false)
-//     );
-// },[]);
-useEffect(() => {
-  async function fetchImages() {
-    try {
-      setIsLoading(true);
-      const fetchedImages = await getImages('cats');
-      setImages(fetchedImages);
-    } catch (error) {
-      setIsError(true);
-    } finally {
-      setIsLoading(false); 
-    }
-  }
-  fetchImages();
-}, []);
+const handleSearch = async (topic) => {
+try {
+  setIsLoading(true);
+  setIsError(false);
+  setImages([]);
+  searchQuery(topic)
+  const fetchedImages = await getImages(searchQuery, page);
+  setImages(fetchedImages);  
+} catch (error) {
+  setIsError(true);
+}
+finally{
+  setIsLoading(false); 
+
+}};
+const handLoadMore = async () =>{
+try {
+  setPage(page+1);
+  setIsLoading(true);
+  setIsError(false);
+  const fetchedImages = await getImages(searchQuery, page);
+  setImages(fetchedImages);  
+} catch (error) {
+  setIsError(true);
+}
+finally{
+  setIsLoading(false); 
+
+}
+}
   return (
-    <>
-{isLoading && <Loader/>}
-{isError && <ErrorMessage/>}
-    {images.length > 0 && <ImageGallery images={images} /> }
+    <><SearchBar onSearch={handleSearch}/>
+    { isLoading && <Loader/> }
+    {isError && <ErrorMessage/>}
+        {images.length > 0 && <ImageGallery images={images} /> }
+        <LoadMoreBtn onClick={handLoadMore}/>
+        </>
 
-    </>
 )
 }

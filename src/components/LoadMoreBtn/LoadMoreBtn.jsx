@@ -1,7 +1,11 @@
-// import css from './Contact.module.css';
+import css from './LoadMoreBtn.module.css';
 
-export default function LoaderMoreBtn() { 
-    return (
-       <h1></h1>
-    );
+function LoadMoreBtn({ onMoreClick }) {
+  return (
+    <button className={css.btn} type="button" onClick={onMoreClick}>
+      Load more
+    </button>
+  );
 }
+
+export default LoadMoreBtn;
