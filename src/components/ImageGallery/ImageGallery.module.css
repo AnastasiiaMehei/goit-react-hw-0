@@ -1,0 +1,15 @@
+.ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px;
+}
+
+.li {
+  flex: 1 0 calc(25% - 15px);
+  max-width: calc(25% - 15px);
+  box-sizing: border-box;
+}
+.li img {
+  height: 200px;
+}
