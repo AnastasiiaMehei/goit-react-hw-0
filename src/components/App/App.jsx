@@ -6,6 +6,7 @@ import { getImages } from '../../components/api';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Loader from '../Loader/Loader';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+import { useEffect } from 'react';
 
 export default function App() {
 
@@ -14,45 +15,41 @@ export default function App() {
  const [isError, setIsError] = useState(false);
  const [page, setPage] = useState(1);
  const [searchQuery, setSearchQuery] = useState("");
-
+useEffect(()=>{
+if (searchQuery.trim() === "") {
+  return
+}
+async function fetchImages() {
+  try {
+    setIsLoading(true);
+    setIsError(false);
+    const data = await getImages(searchQuery, page);
+    setImages((prevState) => [... prevState, ...data]); 
+  } catch (error) {
+    setIsError(true);
+  }
+  finally{
+    setIsLoading(false); 
+  }
+}
+fetchImages()
+}, [page, searchQuery])
 
 const handleSearch = async (topic) => {
-try {
-  setIsLoading(true);
-  setIsError(false);
+  setSearchQuery(topic);
+  setPage(1);
   setImages([]);
-  searchQuery(topic)
-  const fetchedImages = await getImages(searchQuery, page);
-  setImages(fetchedImages);  
-} catch (error) {
-  setIsError(true);
 }
-finally{
-  setIsLoading(false); 
-
-}};
 const handLoadMore = async () =>{
-try {
   setPage(page+1);
-  setIsLoading(true);
-  setIsError(false);
-  const fetchedImages = await getImages(searchQuery, page);
-  setImages(fetchedImages);  
-} catch (error) {
-  setIsError(true);
-}
-finally{
-  setIsLoading(false); 
-
-}
 }
   return (
-    <><SearchBar onSearch={handleSearch}/>
+    <>
+    <SearchBar onSearch={handleSearch}/>
     { isLoading && <Loader/> }
     {isError && <ErrorMessage/>}
         {images.length > 0 && <ImageGallery images={images} /> }
-        <LoadMoreBtn onClick={handLoadMore}/>
+        {images.length>0 && isLoading && (<LoadMoreBtn onClick={handLoadMore}/>)}
         </>
-
 )
 }

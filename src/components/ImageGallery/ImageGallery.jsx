@@ -1,8 +1,7 @@
 import css from './ImageGallery.module.css'
 import ImageCard from "../ImageCard/ImageCard";
-export default function ImageGallery({images}) {if (!Array.isArray(images)) {
-  return null; 
-}
+export default function ImageGallery({images}) {  if (!Array.isArray(images) ||!images.length) {
+  return <div>No images!!!!</div>} 
   return (
     <ul className={css.ul}>
       {images.map((image, index) => (
