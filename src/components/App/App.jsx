@@ -25,6 +25,7 @@ async function fetchImages() {
     setIsError(false);
     const data = await getImages(searchQuery, page);
     setImages((prevState) => [... prevState, ...data]); 
+
   } catch (error) {
     setIsError(true);
   }
