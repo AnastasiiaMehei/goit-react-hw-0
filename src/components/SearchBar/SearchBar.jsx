@@ -3,7 +3,8 @@ import { Formik, Form, Field } from "formik";
 import css from './SearchBar.module.css'
 export default function SearchBar({onSearch}){
 return(
-    <Formik
+    <div className={css.div}>
+      <Formik
     initialValues={{query: ""}}
     onSubmit={(values, actions)=> {
       onSearch(values.query)
@@ -23,4 +24,5 @@ return(
 </div>
 </Form>
       </Formik>
+    </div>
       )}

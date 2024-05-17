@@ -6,6 +6,7 @@ export const getImages = async (topic, currentPage) => {
       client_id: "-7i_jnQlSjDuNkJ4shZWckNEJtBVks9schHspWR86Vg",
       query: topic,
       page: currentPage,
+      per_page: 12,
     },
   });
   return response.data.results;

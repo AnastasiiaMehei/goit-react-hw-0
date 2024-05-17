@@ -3,11 +3,18 @@
   justify-content: center;
   margin-top: 7px;
   background-color: blue;
-  height: 60px;
+
+  height: 55px;
 }
 .divButton {
   display: flex;
   flex-direction: row;
+}
+.div {
+  background-color: blue;
+  height: 75px;
+  display: flex;
+  align-items: center;
 }
 .form {
   border: 1px solid gray;
@@ -17,7 +24,6 @@
   flex-direction: row-reverse;
   justify-content: flex-end;
   background-color: white;
-  box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.75);
   margin: 4px;
   display: block;
   margin: 0 auto;

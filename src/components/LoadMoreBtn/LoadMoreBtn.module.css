@@ -5,8 +5,9 @@
   border-radius: 3px;
   display: block;
   margin: auto;
-  width: 100px;
-  height: 39px;
+  width: 131px;
+  height: 46px;
+  margin-bottom: 20px;
 }
 .btn:focus,
 .btn:hover {
