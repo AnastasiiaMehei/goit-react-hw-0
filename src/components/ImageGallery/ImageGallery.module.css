@@ -1,11 +1,22 @@
-.ul {
+.imageGallery {
+  /* display: flex;
+  flex-wrap: wrap;
+  gap: 10px; */
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
+  padding: 15px;
+  list-style: none;
 }
-.li {
-  width: calc((100% - 15px) / 4);
+
+.imageGallery li {
+  flex: 1 0 calc(25% - 15px);
+  max-width: calc(25% - 15px);
+  box-sizing: border-box;
 }
-.li img {
+
+.imageGallery img {
+  max-width: 100%;
   height: 200px;
+  width: -webkit-fill-available;
 }

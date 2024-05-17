@@ -1,4 +1,4 @@
-// import css from './App.module.css'
+import './App.module.css'
 import { useState } from 'react';
 import SearchBar from "../SearchBar/SearchBar"
 import ImageGallery from '../ImageGallery/ImageGallery';
@@ -7,6 +7,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Loader from '../Loader/Loader';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import { useEffect } from 'react';
+import ImageModal from '../ImageModal/ImageModal';
 
 export default function App() {
 
@@ -44,13 +45,26 @@ const handleSearch = async (topic) => {
 const handLoadMore = async () =>{
   setPage(page+1);
 }
+// модалка
+const [selectedImage, setSelectedImage] = useState(null)
+const [modalIsOpen, setIsModalOpen] = useState(false);
+const handleImageClick = (image) => {
+  setSelectedImage(image);
+  setIsModalOpen(true);
+};
+ const closeModal = () => {
+  setIsModalOpen(false);
+};
   return (
     <>
     <SearchBar onSearch={handleSearch}/>
     { isLoading && <Loader/> }
     {isError && <ErrorMessage/>}
-        {images.length > 0 && <ImageGallery images={images} /> }
-        {images.length>0 && isLoading && (<LoadMoreBtn onClick={handLoadMore}/>)}
+    {images.length > 0 && <ImageGallery images={images} onImageClick={handleImageClick} />}
+            {images.length>0 && isLoading && (<LoadMoreBtn onClick={handLoadMore}/>)}
+        {selectedImage && <ImageModal  isOpen={modalIsOpen}
+        selectedImage={selectedImage}
+        onRequestClose={closeModal}/>}
         </>
 )
 }
