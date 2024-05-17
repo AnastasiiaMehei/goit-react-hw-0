@@ -10,15 +10,17 @@ return(
       actions.resetForm()}
     }>
 <Form className={css.form} >
+<div className={css.divButton}>
+<button className={css.btn} type="submit">
+    <IoIosSearch/>
+    </button>
   <Field className={css.input}
       type="text"
       name="query"
       autoComplete="off"
       autoFocus
       placeholder="Search images and photos"/>
-  <button className={css.btn} type="submit">
-    <IoIosSearch/>
-    </button>
+</div>
 </Form>
       </Formik>
       )}
