@@ -8,5 +8,5 @@ export const getImages = async (topic, currentPage) => {
       page: currentPage,
     },
   });
-  return response.data.hits;
+  return response.data.results;
 };
