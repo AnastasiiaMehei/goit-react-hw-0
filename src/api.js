@@ -9,5 +9,4 @@ export const getImages = async (topic, currentPage) => {
     },
   });
   return response.data.hits;
-  console.log(data);
 };

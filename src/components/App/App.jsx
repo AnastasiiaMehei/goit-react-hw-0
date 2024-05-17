@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import SearchBar from "../SearchBar/SearchBar"
 import ImageGallery from '../ImageGallery/ImageGallery';
-import { getImages } from '../../components/api';
+import { getImages } from '../../api';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Loader from '../Loader/Loader';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
