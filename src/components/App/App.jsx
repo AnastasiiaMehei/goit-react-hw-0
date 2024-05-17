@@ -42,20 +42,9 @@ const handleSearch = async (topic) => {
   setPage(1);
   setImages([]);
 }
-// const handLoadMore = async () =>{
-//   setPage(page+1);
-// }
-const loadMoreImages = async () => {
-  try {
-    const newImages = await getImages(page + 1);
-    if (newImages.length > 0) {
-      setImages(prevImages => [...prevImages,...newImages]);
-      setPage(prevPage => prevPage + 1);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
+const handLoadMore = async () =>{
+  setPage(page+1);
+}
 // модалка
 const [selectedImage, setSelectedImage] = useState(null)
 const [modalIsOpen, setIsModalOpen] = useState(false);
@@ -72,7 +61,7 @@ const handleImageClick = (image) => {
     { isLoading && <Loader/> }
     {isError && <ErrorMessage/>}
     {images.length > 0 && <ImageGallery images={images} onImageClick={handleImageClick} />}
-            {images.length>0 && !isLoading && (<LoadMoreBtn onClick={loadMoreImages}/>)}
+            {images.length>0 && !isLoading && (<LoadMoreBtn onMoreClick={handLoadMore}/>) }
         {selectedImage && <ImageModal  isOpen={modalIsOpen}
         selectedImage={selectedImage}
         onRequestClose={closeModal}/>}
