@@ -3,3 +3,6 @@
   height: auto;
   width: -webkit-fill-available;
 }
+.div {
+  width: fit-content;
+}
