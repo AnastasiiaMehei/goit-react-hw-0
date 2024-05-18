@@ -2,8 +2,6 @@ import { IoIosSearch } from "react-icons/io";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./SearchBar.module.css";
-import { toast } from "react-hot-toast";
-
 export default function SearchBar({ onSearch }) {
   const validationSchema = Yup.object().shape({
     query: Yup.string()
@@ -17,10 +15,6 @@ export default function SearchBar({ onSearch }) {
       <Formik
         initialValues={{ query: "" }}
         onSubmit={(values, actions) => {
-          if (values.query.trim() === "") {
-            toast.error("Please enter search text");
-            return;
-          }
           onSearch(values.query);
           actions.resetForm();
         }}
