@@ -8,6 +8,8 @@ import Loader from "../Loader/Loader";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import { useEffect } from "react";
 import ImageModal from "../ImageModal/ImageModal";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   const [images, setImages] = useState([]);
@@ -15,6 +17,7 @@ export default function App() {
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     if (searchQuery.trim() === "") {
       return;
@@ -39,9 +42,11 @@ export default function App() {
     setPage(1);
     setImages([]);
   };
+
   const handLoadMore = async () => {
     setPage(page + 1);
   };
+
   // модалка
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalIsOpen, setIsModalOpen] = useState(false);
@@ -52,6 +57,7 @@ export default function App() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <>
       <SearchBar onSearch={handleSearch} />
@@ -70,6 +76,7 @@ export default function App() {
           onRequestClose={closeModal}
         />
       )}
+      <ToastContainer />
     </>
   );
 }

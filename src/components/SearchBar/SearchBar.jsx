@@ -2,12 +2,12 @@ import { IoIosSearch } from "react-icons/io";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./SearchBar.module.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function SearchBar({ onSearch }) {
   const validationSchema = Yup.object().shape({
-    query: Yup.string()
-      .min(3, "Too Short")
-      .max(50, "Too Long")
-      .required("Required"),
+    query: Yup.string().min(3, "Too Short").max(50, "Too Long"),
   });
 
   return (
@@ -15,6 +15,10 @@ export default function SearchBar({ onSearch }) {
       <Formik
         initialValues={{ query: "" }}
         onSubmit={(values, actions) => {
+          if (values.query.trim() === "") {
+            toast.error("Search query cannot be empty or just spaces");
+            return;
+          }
           onSearch(values.query);
           actions.resetForm();
         }}
@@ -37,6 +41,7 @@ export default function SearchBar({ onSearch }) {
           </div>
         </Form>
       </Formik>
+      <ToastContainer />
     </div>
   );
 }
